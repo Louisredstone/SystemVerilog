@@ -71,9 +71,9 @@ module spiw(
     
     reg [7:0] cache[2];
     reg cache1_flag;//means that cache1's content waits to be transformed.
-    //cache0 for divident number.
+    //cache0 for divident ceiling. freq(SCK)==freq(sysclk)/divident/2 (?)
     //cache1 for data. 
-    reg [7:0] spi_buf;
+    reg [7:0] spi_buf;//shift reg
     reg state;//0 for idle, 1 for raising ACK
     reg [3:0] counter;//counter for spi
     reg [7:0] divi_counter;
