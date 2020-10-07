@@ -147,7 +147,7 @@ always@(SPI_MASTER_SCK_O or posedge RST_I) begin
             else begin
                 SPI_MASTER_MOSI_O<=spi_buf[7];
                 spi_buf<=(spi_buf<<1);
-                if(counter==9) counter<=0;
+                if(counter==8) counter<=0;
                 else counter<=counter+1;
             end
         end
