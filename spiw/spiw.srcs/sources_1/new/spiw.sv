@@ -138,6 +138,7 @@ always@(SPI_MASTER_SCK_O or posedge RST_I) begin
     else begin
         if(SPI_MASTER_SCK_O)begin
             if(counter==0)begin
+                SPI_MASTER_MOSI_O<=0;
                 if(cache1_flag==1) begin
                     counter<=1;
                     spi_buf<=cache[1];
@@ -152,7 +153,7 @@ always@(SPI_MASTER_SCK_O or posedge RST_I) begin
             end
         end
         else begin
-            if(counter!=0) spi_buf[0]<=SPI_MASTER_MISO_I;
+            if(counter!=0 && counter!=1) spi_buf[0]<=SPI_MASTER_MISO_I;
         end
     end
 end
