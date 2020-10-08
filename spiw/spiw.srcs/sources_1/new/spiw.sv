@@ -73,7 +73,7 @@ module spiw(
     reg cache1_flag;//means that cache1's content waits to be transformed.
     //cache0 for divident ceiling. freq(SCK)==freq(sysclk)/divident/2 (?)
     //cache1 for data. 
-    reg [7:0] spi_buf;//shift reg
+    reg [7:0] spi_psr;//shift reg
     reg state;//0 for idle, 1 for raising ACK
     reg [3:0] counter;//counter for spi
     reg [7:0] divi_counter;
@@ -131,7 +131,7 @@ end
 
 always@(SPI_MASTER_SCK_O or posedge RST_I) begin
     if(RST_I) begin
-        spi_buf<=8'b0;
+        spi_psr<=8'b0;
         counter<=0;
         SPI_MASTER_MOSI_O<=0;
     end
@@ -141,19 +141,19 @@ always@(SPI_MASTER_SCK_O or posedge RST_I) begin
                 SPI_MASTER_MOSI_O<=0;
                 if(cache1_flag==1) begin
                     counter<=1;
-                    spi_buf<=cache[1];
+                    spi_psr<=cache[1];
                     if(~(WISHBONE_SLAVE_CYC_I && WISHBONE_SLAVE_STB_I && WISHBONE_SLAVE_WE_I && WISHBONE_SLAVE_ADR_I && (state==0))) cache1_flag<=0;
                 end
             end
             else begin
-                SPI_MASTER_MOSI_O<=spi_buf[7];
-                spi_buf<=(spi_buf<<1);
+                SPI_MASTER_MOSI_O<=spi_psr[7];
+                spi_psr<=(spi_psr<<1);
                 if(counter==8) counter<=0;
                 else counter<=counter+1;
             end
         end
         else begin
-            if(counter!=0 && counter!=1) spi_buf[0]<=SPI_MASTER_MISO_I;
+            if(counter!=0 && counter!=1) spi_psr[0]<=SPI_MASTER_MISO_I;
         end
     end
 end
