@@ -1,4 +1,4 @@
-@REM @echo off
+@echo off
 ssh -T git@github.com
 git add .
 git commit -m "%date%"
