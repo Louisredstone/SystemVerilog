@@ -44,6 +44,24 @@ assign C[2]=G[1] | P1G0 | P1P0C0;
 assign C[3]=G[2] | P2G1 | P2P1G0 | P2P1P0C0;
 assign C[4]=G[3] | P3G2 | P3P2G1 | P3P2P1G0 | P3P2P1P0C0;
 
+// always@(*) begin
+//     P0C0=P[0]&C[0];
+//     P1P0C0=P[1]&P0C0;
+//     P2P1P0C0=P[2]&P1P0C0;
+//     P3P2P1P0C0=P[3]&P2P1P0C0;
+//     P1G0=P[1]&G[0];
+//     P2P1G0=P[2]&P1G0;
+//     P3P2P1G0=P[3]&P2P1G0;
+//     P2G1=P[2]&G[1];
+//     P3P2G1=P[3]&P2G1;
+//     P3G2=P[3]&G[2];
+
+//     C[1]=G[0] | P0C0;
+//     C[2]=G[1] | P1G0 | P1P0C0;
+//     C[3]=G[2] | P2G1 | P2P1G0 | P2P1P0C0;
+//     C[4]=G[3] | P3G2 | P3P2G1 | P3P2P1G0 | P3P2P1P0C0;
+// end
+
 endmodule
 
 module adder16(
@@ -63,9 +81,6 @@ wire P3_0;
 wire P7_4;
 wire P11_8;
 wire P15_12;
-wire C4;
-wire C8;
-wire C12;
 
 adder4 adder4_0(.A(A[3:0]),.B(B[3:0]),.Ci(Ci),.S(S[3:0]),.Co(),.Go(G3_0),.Po(P3_0));
 adder4 adder4_1(.A(A[7:4]),.B(B[7:4]),.Ci(C4),.S(S[7:4]),.Co(),.Go(G7_4),.Po(P7_4));
