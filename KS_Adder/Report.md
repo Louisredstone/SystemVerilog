@@ -1,3 +1,12 @@
+---
+title: "课程作业报告2"
+output:
+    word_document:
+        path: ./课程作业报告2.docx
+        toc: true
+        toc_depth: 6
+        number_sections: true
+---
 # Kogge-Stone加法器设计验证
 张朕银20212020089 薛玥20212020163
 
